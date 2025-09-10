@@ -1,18 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My First Project</title>
-    
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>
-        Weather App
-    </h1>
-    <p>This is my Weather App project setup.</p>
+  <div class="app-container">
+    <header>
+      <h1>Weather App</h1>
+      <p class="location">📍 Your Location</p>
+    </header>
 
-    <script src="script.js"></script>
+    <section class="current-weather">
+      <h2>Current Weather</h2>
+      <div class="weather-info">
+        <img src="https://cdn-icons-png.flaticon.com/512/1116/1116453.png" alt="Weather Icon" class="weather-icon">
+        <div>
+          <p class="temperature">25°C</p>
+          <p class="condition">Sunny</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="forecast">
+      <h2>Forecast</h2>
+      <div class="forecast-grid">
+        <div class="forecast-day">
+          <p>Mon</p>
+          <img src="https://cdn-icons-png.flaticon.com/512/1116/1116453.png" alt="Sunny">
+          <p>28°C</p>
+        </div>
+        <div class="forecast-day">
+          <p>Tue</p>
+          <img src="https://cdn-icons-png.flaticon.com/512/1163/1163624.png" alt="Cloudy">
+          <p>24°C</p>
+        </div>
+        <div class="forecast-day">
+          <p>Wed</p>
+          <img src="https://cdn-icons-png.flaticon.com/512/1146/1146869.png" alt="Rain">
+          <p>22°C</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
