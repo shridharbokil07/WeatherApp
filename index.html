@@ -1,44 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather App</title>
+  <!-- Page metadata and settings -->
+  <meta charset="UTF-8"> <!-- Defines character encoding -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ensures responsive design on mobile -->
+  
+  <title>Weather App</title> <!-- Page title shown in browser tab -->
+
+  <!-- External CSS file -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="app-container">
+    <!-- Header Section -->
     <header>
-      
-      <h1>Weather App</h1>
-      
-      <p class="location">📍 Your Location</p>
+      <h1>Weather App</h1> <!-- Main app heading -->
+      <p class="location">📍 Your Location</p> <!-- Placeholder for user's location -->
+
+      <!-- Search bar for entering city name -->
       <div class="search">
-  <input type="text" placeholder="Enter city name..." id="searchInput">
-  <button id="searchBtn">Search</button>
-</div>
-
-      
-
-      <div class="search">
-           
-        
-
+        <input type="text" placeholder="Enter city name..." id="searchInput">
+        <button id="searchBtn">Search</button>
+      </div>
     </header>
 
+    <!-- Current Weather Section -->
     <section class="current-weather">
       <h2>Current Weather</h2>
+
+      <!-- Displays current weather info (icon + details) -->
       <div class="weather-info">
-        <img src="https://cdn-icons-png.flaticon.com/512/1116/1116453.png" alt="Weather Icon" class="weather-icon">
+        <img id="weatherIcon" src="https://cdn-icons-png.flaticon.com/512/1116/1116453.png" alt="Weather Icon" class="weather-icon">
         <div>
-          <p class="temperature">25°C</p>
-          <p class="condition">Sunny</p>
+          <p id="temperature" class="temperature">25°C</p> <!-- Current temperature -->
+          <p id="condition" class="condition">Sunny</p> <!-- Weather condition -->
+          <p id="cityName" class="city">City: Aurangabad </p> <!-- City name -->
         </div>
       </div>
+
+      <!-- Error message placeholder (shown when invalid city is entered) -->
+      <p id="errorMessage" style="color: red; font-weight: bold; margin-top: 10px;"></p>
     </section>
 
+    <!-- Forecast Section -->
     <section class="forecast">
       <h2>Forecast</h2>
+
+      <!-- Grid for displaying forecast of upcoming days -->
       <div class="forecast-grid">
         <div class="forecast-day">
           <p>Mon</p>
@@ -59,7 +67,7 @@
     </section>
   </div>
 
+  <!-- JavaScript file for app functionality -->
   <script src="script.js"></script>
 </body>
 </html>
-
