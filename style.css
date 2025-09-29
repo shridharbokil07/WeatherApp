@@ -14,7 +14,6 @@ body {
   min-height: 100vh;
 }
 
-
 .app-container {
   background: #fff;
   border-radius: 12px;
@@ -24,7 +23,6 @@ body {
   padding: 20px;
   text-align: center;
 }
-
 
 header h1 {
   color: #0077cc;
@@ -61,7 +59,6 @@ header .location {
   background: #005fa3;
 }
 
-
 .current-weather {
   margin: 20px 0;
 }
@@ -85,11 +82,21 @@ header .location {
   font-size: 1.2rem;
   color: #555;
 }
-
+.humidity {
+  margin: 0;
+  font-size: 1rem;
+  color: #008080; /* Teal for distinction */
+  font-weight: 500;
+}
 .city {
   font-size: 1rem;
   color: #444;
   margin-top: 4px;
+}
+
+/* Optional: improve spacing */
+.weather-info div p {
+  margin: 4px 0;
 }
 
 .forecast {
@@ -101,6 +108,13 @@ header .location {
   gap: 10px;
   margin-top: 10px;
 }
+.time {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
 .forecast-day {
   background: #f0f8ff;
   padding: 10px;
@@ -111,7 +125,6 @@ header .location {
   height: 40px;
 }
 
-
 @media (max-width: 480px) {
   .temperature {
     font-size: 1.5rem;
@@ -120,6 +133,4 @@ header .location {
     padding: 8px;
   }
 }
-
-
-
+ 
