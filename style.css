@@ -85,7 +85,7 @@ header .location {
 .humidity {
   margin: 0;
   font-size: 1rem;
-  color: #008080; /* Teal for distinction */
+  color: #008080;
   font-weight: 500;
 }
 .city {
@@ -93,14 +93,19 @@ header .location {
   color: #444;
   margin-top: 4px;
 }
-
-/* Optional: improve spacing */
 .weather-info div p {
   margin: 4px 0;
 }
 
 .forecast {
-  margin-top: 20px;
+  margin-top: 25px;
+  padding: 15px;
+  border-top: 2px solid #0077cc;
+  background: #e0f7fa;
+  border-radius: 10px;
+}
+.forecast h2 {
+  color: #0077cc;
 }
 .forecast-grid {
   display: grid;
@@ -108,21 +113,25 @@ header .location {
   gap: 10px;
   margin-top: 10px;
 }
+.forecast-day {
+  background: #ffffffaa;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+.forecast-day:hover {
+  transform: translateY(-5px);
+}
+.forecast-day img {
+  width: 50px;
+  height: 50px;
+}
 .time {
   font-size: 1rem;
   color: #333;
   margin-bottom: 10px;
   font-weight: bold;
-}
-
-.forecast-day {
-  background: #f0f8ff;
-  padding: 10px;
-  border-radius: 8px;
-}
-.forecast-day img {
-  width: 40px;
-  height: 40px;
 }
 
 @media (max-width: 480px) {
@@ -133,4 +142,3 @@ header .location {
     padding: 8px;
   }
 }
- 

@@ -1,20 +1,18 @@
 console.log("JavaScript is working!");
 
-// ✅ Your API key
 const apiKey = "b6ae5bd0b82bf7a9d842aa2e4e677262";
 
-// Get elements
 const searchBtn = document.getElementById("searchBtn");
 const searchInput = document.getElementById("searchInput");
 
-// ✅ Function to update current time
+// ✅ Update current time
 function updateTime() {
   const now = new Date();
   const timeString = now.toLocaleTimeString();
   document.getElementById("currentTime").textContent = timeString;
 }
-setInterval(updateTime, 1000); // Update every second
-updateTime(); // Call immediately
+setInterval(updateTime, 1000);
+updateTime();
 
 // ✅ Fetch weather by city
 function getWeather(city) {
@@ -22,22 +20,16 @@ function getWeather(city) {
 
   fetch(apiUrl)
     .then(response => {
-      if (!response.ok) {
-        throw new Error("City not found");
-      }
+      if (!response.ok) throw new Error("City not found");
       return response.json();
     })
     .then(data => {
-      console.log("🌦️ API Response:", data);
-
-      // ✅ Extract data
       const temperature = data.main.temp;
       const humidity = data.main.humidity;
       const condition = data.weather[0].description;
       const cityName = data.name;
       const icon = data.weather[0].icon;
 
-      // ✅ Update HTML
       document.getElementById("temperature").textContent = `${temperature}°C`;
       document.getElementById("condition").textContent = condition;
       document.getElementById("humidity").textContent = `Humidity: ${humidity}%`;
@@ -45,8 +37,10 @@ function getWeather(city) {
       document.getElementById("weatherIcon").src =
         `https://openweathermap.org/img/wn/${icon}@2x.png`;
 
-      // Clear error message
       document.getElementById("errorMessage").textContent = "";
+
+      // ✅ Fetch 5-day forecast
+      getForecast(city);
     })
     .catch(error => {
       console.error("❌ Error fetching weather:", error);
@@ -55,23 +49,19 @@ function getWeather(city) {
     });
 }
 
-// ✅ Fetch weather by coordinates (for current location)
+// ✅ Fetch weather by coordinates
 function getWeatherByLocation(lat, lon) {
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 
   fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
-      console.log("📍 Location Weather:", data);
-
-      // ✅ Extract data
       const temperature = data.main.temp;
       const humidity = data.main.humidity;
       const condition = data.weather[0].description;
       const cityName = data.name;
       const icon = data.weather[0].icon;
 
-      // ✅ Update HTML
       document.getElementById("temperature").textContent = `${temperature}°C`;
       document.getElementById("condition").textContent = condition;
       document.getElementById("humidity").textContent = `Humidity: ${humidity}%`;
@@ -79,8 +69,10 @@ function getWeatherByLocation(lat, lon) {
       document.getElementById("weatherIcon").src =
         `https://openweathermap.org/img/wn/${icon}@2x.png`;
 
-      // Clear error message
       document.getElementById("errorMessage").textContent = "";
+
+      // ✅ Fetch 5-day forecast by city
+      getForecast(cityName);
     })
     .catch(error => {
       console.error("❌ Error fetching location weather:", error);
@@ -89,7 +81,55 @@ function getWeatherByLocation(lat, lon) {
     });
 }
 
-// ✅ On load: Get weather of current location
+// ✅ Fetch 5-day forecast for a city
+function getForecast(city) {
+  const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+
+  fetch(forecastUrl)
+    .then(response => {
+      if (!response.ok) throw new Error("Forecast not found");
+      return response.json();
+    })
+    .then(data => {
+      const dailyForecast = [];
+      const seenDates = new Set();
+
+      data.list.forEach(item => {
+        const date = item.dt_txt.split(" ")[0];
+        const time = item.dt_txt.split(" ")[1];
+        if (!seenDates.has(date) && time === "12:00:00") {
+          seenDates.add(date);
+          dailyForecast.push({
+            date,
+            temp: item.main.temp,
+            icon: item.weather[0].icon,
+            condition: item.weather[0].description
+          });
+        }
+      });
+
+      const forecastGrid = document.querySelector(".forecast-grid");
+      forecastGrid.innerHTML = "";
+      dailyForecast.slice(0, 5).forEach(day => {
+        const dayName = new Date(day.date).toLocaleDateString("en-US", { weekday: "short" });
+        const forecastHTML = `
+          <div class="forecast-day">
+            <p>${dayName}</p>
+            <img src="https://openweathermap.org/img/wn/${day.icon}@2x.png" alt="${day.condition}">
+            <p>${Math.round(day.temp)}°C</p>
+          </div>
+        `;
+        forecastGrid.insertAdjacentHTML("beforeend", forecastHTML);
+      });
+    })
+    .catch(error => {
+      console.error("❌ Error fetching forecast:", error);
+      document.getElementById("errorMessage").textContent =
+        "⚠️ Could not fetch forecast.";
+    });
+}
+
+// ✅ On load: get weather of current location
 if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(
     position => {
@@ -98,12 +138,10 @@ if (navigator.geolocation) {
     },
     error => {
       console.error("Geolocation error:", error);
-      // fallback city if location blocked
       getWeather("Aurangabad");
     }
   );
 } else {
-  // fallback if geolocation not supported
   getWeather("Aurangabad");
 }
 
